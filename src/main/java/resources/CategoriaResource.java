@@ -26,11 +26,8 @@ public class CategoriaResource {
         //se relaciona com o id da variavel no parametro usa se a notaçao
         //Metodo retorna um objt ResponseEntity<sem parametro> ja encapsula varias informacoes
         //de uma mensagem http, sem parametro pq pode ou nao retornar algo
-        Categoria obj = categoriaService.buscar(id);
+        Categoria obj = categoriaService.find(id);
         return ResponseEntity.ok().body(obj);
         //metodo ok dizendo que ocorreu com sucesso tendo como corpo a categoria
     }
-
-
-
 }
