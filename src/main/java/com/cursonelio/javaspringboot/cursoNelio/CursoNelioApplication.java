@@ -1,17 +1,17 @@
 package com.cursonelio.javaspringboot.cursoNelio;
 
-import domain.*;
-import domain.enuns.EstadoPagamento;
-import domain.enuns.TipoCliente;
+import com.cursonelio.javaspringboot.cursoNelio.domain.*;
+import com.cursonelio.javaspringboot.cursoNelio.domain.enuns.EstadoPagamento;
+import com.cursonelio.javaspringboot.cursoNelio.domain.enuns.TipoCliente;
+import com.cursonelio.javaspringboot.cursoNelio.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import repository.*;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 
 @SpringBootApplication
 public class CursoNelioApplication implements CommandLineRunner { //permiti implementar um metodo auxiliar
