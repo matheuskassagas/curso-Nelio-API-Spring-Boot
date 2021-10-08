@@ -4,11 +4,10 @@ package com.cursonelio.javaspringboot.cursoNelio.resources;
 import com.cursonelio.javaspringboot.cursoNelio.domain.Categoria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.cursonelio.javaspringboot.cursoNelio.service.CategoriaService;
+
+import java.util.List;
 
 @RestController//classe controladora
 @RequestMapping(value="/categorias")//nome do end point rest
@@ -27,4 +26,26 @@ public class CategoriaResource {
         return ResponseEntity.ok().body(obj);
         //metodo ok dizendo que ocorreu com sucesso tendo como corpo a categoria
     }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Categoria> findAll(){
+        List<Categoria> categoria = categoriaService.findAll();
+        return categoria;
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public Categoria create(@RequestBody  Categoria categoria){
+        return categoria = categoriaService.create(categoria);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public Categoria update(@PathVariable Integer id, @RequestBody Categoria categoria){
+        return categoriaService.update(id, categoria);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable Integer id){
+        categoriaService.delete(id);
+    }
+
 }

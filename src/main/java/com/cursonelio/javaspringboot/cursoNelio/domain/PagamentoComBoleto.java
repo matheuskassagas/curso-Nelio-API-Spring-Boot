@@ -25,7 +25,7 @@ public class PagamentoComBoleto extends Pagamento{
         this.dataPagamento = dataPagamento;
     }
 
-    public Date getDataVencimento() {
+    public Date getDataVencimento(){
         return dataVencimento;
     }
 
