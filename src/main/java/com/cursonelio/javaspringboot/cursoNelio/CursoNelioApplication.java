@@ -1,8 +1,8 @@
 package com.cursonelio.javaspringboot.cursoNelio;
 
-import com.cursonelio.javaspringboot.cursoNelio.domain.*;
-import com.cursonelio.javaspringboot.cursoNelio.domain.enuns.EstadoPagamento;
-import com.cursonelio.javaspringboot.cursoNelio.domain.enuns.TipoCliente;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.*;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.EstadoPagamento;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.TipoCliente;
 import com.cursonelio.javaspringboot.cursoNelio.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

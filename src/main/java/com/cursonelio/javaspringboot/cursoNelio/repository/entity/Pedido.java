@@ -1,4 +1,4 @@
-package com.cursonelio.javaspringboot.cursoNelio.domain;
+package com.cursonelio.javaspringboot.cursoNelio.repository.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

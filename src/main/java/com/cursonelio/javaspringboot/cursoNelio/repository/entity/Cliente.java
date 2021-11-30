@@ -1,7 +1,7 @@
-package com.cursonelio.javaspringboot.cursoNelio.domain;
+package com.cursonelio.javaspringboot.cursoNelio.repository.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.cursonelio.javaspringboot.cursoNelio.domain.enuns.TipoCliente;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.TipoCliente;
 
 import javax.persistence.*;
 import java.io.Serializable;

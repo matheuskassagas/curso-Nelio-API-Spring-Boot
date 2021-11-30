@@ -1,4 +1,4 @@
-package com.cursonelio.javaspringboot.cursoNelio.resources.exception;
+package com.cursonelio.javaspringboot.cursoNelio.controller.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

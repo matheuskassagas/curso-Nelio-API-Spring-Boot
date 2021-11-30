@@ -1,8 +1,7 @@
 package com.cursonelio.javaspringboot.cursoNelio.service;
 
 
-import com.cursonelio.javaspringboot.cursoNelio.domain.Cliente;
-import com.cursonelio.javaspringboot.cursoNelio.domain.Pedido;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Pedido;
 import com.cursonelio.javaspringboot.cursoNelio.repository.PedidoRepository;
 import org.springframework.stereotype.Service;
 import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFounfException;

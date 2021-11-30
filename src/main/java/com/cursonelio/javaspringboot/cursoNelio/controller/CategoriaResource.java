@@ -1,8 +1,9 @@
-package com.cursonelio.javaspringboot.cursoNelio.resources;
+package com.cursonelio.javaspringboot.cursoNelio.controller;
 
 
-import com.cursonelio.javaspringboot.cursoNelio.domain.Categoria;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Categoria;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.cursonelio.javaspringboot.cursoNelio.service.CategoriaService;
@@ -34,8 +35,9 @@ public class CategoriaResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Categoria create(@RequestBody  Categoria categoria){
-        return categoria = categoriaService.create(categoria);
+    public ResponseEntity<?> create(@RequestBody  Categoria categoria){
+        categoria = categoriaService.create(categoria);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

@@ -1,6 +1,6 @@
-package com.cursonelio.javaspringboot.cursoNelio.domain;
+package com.cursonelio.javaspringboot.cursoNelio.repository.entity;
 
-import com.cursonelio.javaspringboot.cursoNelio.domain.enuns.EstadoPagamento;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.EstadoPagamento;
 
 import javax.persistence.Entity;
 

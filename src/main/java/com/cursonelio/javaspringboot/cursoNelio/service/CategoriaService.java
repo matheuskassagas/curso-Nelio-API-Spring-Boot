@@ -1,6 +1,6 @@
 package com.cursonelio.javaspringboot.cursoNelio.service;
 
-import com.cursonelio.javaspringboot.cursoNelio.domain.Categoria;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Categoria;
 import com.cursonelio.javaspringboot.cursoNelio.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.cursonelio.javaspringboot.cursoNelio.domain.enuns;
+package com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns;
 
 public enum TipoCliente {
 

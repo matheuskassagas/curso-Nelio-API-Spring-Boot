@@ -1,15 +1,10 @@
-package com.cursonelio.javaspringboot.cursoNelio.domain;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package com.cursonelio.javaspringboot.cursoNelio.repository.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-
 @Entity
-public class Estado implements Serializable {
+public class Cidade implements Serializable {
     private static final long seriaVersionUID = 1L;
 
     @Id
@@ -17,18 +12,17 @@ public class Estado implements Serializable {
     private Integer id;
     private String nome;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "estado")
-    private List<Cidade> cidades = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "estado_id")
+    private Estado estado;
 
-    public Estado(){
+    public Cidade(){
     }
 
-    public Estado(Integer id, String nome) {
-        super();
+    public Cidade(Integer id, String nome, Estado estado) {
         this.id = id;
         this.nome = nome;
-
+        this.estado = estado;
     }
 
     public Integer getId() {
@@ -47,20 +41,20 @@ public class Estado implements Serializable {
         this.nome = nome;
     }
 
-    public List<Cidade> getCidades() {
-        return cidades;
+    public Estado getEstado() {
+        return estado;
     }
 
-    public void setCidades(List<Cidade> cidades) {
-        this.cidades = cidades;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Estado estado = (Estado) o;
-        return getId().equals(estado.getId());
+        Cidade cidade = (Cidade) o;
+        return getId().equals(cidade.getId());
     }
 
     @Override

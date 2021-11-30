@@ -1,7 +1,7 @@
-package com.cursonelio.javaspringboot.cursoNelio.domain;
+package com.cursonelio.javaspringboot.cursoNelio.repository.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.cursonelio.javaspringboot.cursoNelio.domain.enuns.EstadoPagamento;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.EstadoPagamento;
 
 import javax.persistence.Entity;
 import java.util.Date;

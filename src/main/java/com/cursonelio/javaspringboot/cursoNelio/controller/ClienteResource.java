@@ -1,6 +1,6 @@
-package com.cursonelio.javaspringboot.cursoNelio.resources;
+package com.cursonelio.javaspringboot.cursoNelio.controller;
 
-import com.cursonelio.javaspringboot.cursoNelio.domain.Cliente;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.cursonelio.javaspringboot.cursoNelio.resources.exception;
+package com.cursonelio.javaspringboot.cursoNelio.controller.exception;
 
 import java.io.Serializable;
 
