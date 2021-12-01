@@ -2,6 +2,7 @@ package com.cursonelio.javaspringboot.cursoNelio.controller;
 
 
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Categoria;
+import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFounfException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +20,14 @@ public class CategoriaResource {
 
     //simples requisicao GET - verbo http obtendo dados (pegando dados)
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
-    public ResponseEntity<?> find(@PathVariable Integer id){ //anotaçao @PathVariable para o spring sabia que o id da url
-        //se relaciona com o id da variavel no parametro usa se a notaçao
-        //Metodo retorna um objt ResponseEntity<sem parametro> ja encapsula varias informacoes
-        //de uma mensagem http, sem parametro pq pode ou nao retornar algo
-        Categoria obj = categoriaService.find(id);
-        return ResponseEntity.ok().body(obj);
-        //metodo ok dizendo que ocorreu com sucesso tendo como corpo a categoria
+    public ResponseEntity<?> find(@PathVariable Integer id){
+        try{
+            Categoria obj = categoriaService.find(id);
+            return ResponseEntity.ok().body(obj);
+        }catch (ObjectNotFounfException e){
+            throw new ObjectNotFounfException(e.getMessage());
+        }
+
     }
 
     @RequestMapping(method = RequestMethod.GET)
