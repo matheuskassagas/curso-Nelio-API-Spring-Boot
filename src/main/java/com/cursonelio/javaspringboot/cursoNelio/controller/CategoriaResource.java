@@ -1,6 +1,7 @@
 package com.cursonelio.javaspringboot.cursoNelio.controller;
 
 
+import com.cursonelio.javaspringboot.cursoNelio.dto.CategoriaResponse;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Categoria;
 import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFounfException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,18 +23,13 @@ public class CategoriaResource {
     //simples requisicao GET - verbo http obtendo dados (pegando dados)
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
     public ResponseEntity<?> find(@PathVariable Integer id){
-        try{
-            Categoria obj = service.find(id);
-            return ResponseEntity.ok().body(obj);
-        }catch (ObjectNotFounfException e){
-            throw new ObjectNotFounfException(e.getMessage());
-        }
+        Categoria obj = service.find(id);
+        return ResponseEntity.ok().body(obj);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Categoria> findAll(){
-        List<Categoria> categoria = service.findAll();
-        return categoria;
+    public ResponseEntity<List<CategoriaResponse>> findAll(){
+        return ResponseEntity.ok().body(service.findAll());
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -44,8 +40,10 @@ public class CategoriaResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Categoria update(@PathVariable Integer id, @RequestBody Categoria categoria){
-        return service.update(id, categoria);
+    public ResponseEntity<?>  update(@PathVariable Integer id, @RequestBody Categoria categoria){
+        categoria.setId(id);
+        service.update(categoria);
+        return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
