@@ -1,6 +1,6 @@
 package com.cursonelio.javaspringboot.cursoNelio.service;
 
-import com.cursonelio.javaspringboot.cursoNelio.dto.CategoriaResponse;
+import com.cursonelio.javaspringboot.cursoNelio.dto.Response.CategoriaResponse;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Categoria;
 import com.cursonelio.javaspringboot.cursoNelio.repository.CategoriaRepository;
 import com.cursonelio.javaspringboot.cursoNelio.service.exception.DataIntegrityException;

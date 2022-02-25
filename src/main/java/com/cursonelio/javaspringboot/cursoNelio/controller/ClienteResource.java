@@ -1,11 +1,14 @@
 package com.cursonelio.javaspringboot.cursoNelio.controller;
 
+import com.cursonelio.javaspringboot.cursoNelio.dto.Response.ClienteResponse;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.cursonelio.javaspringboot.cursoNelio.service.ClienteService;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -13,32 +16,36 @@ import java.util.List;
 public class ClienteResource {
 
     @Autowired
-    private ClienteService clienteService;
+    private ClienteService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> find (@PathVariable Integer id){
-        Cliente obj = clienteService.find(id);
+        Cliente obj = service.find(id);
         return ResponseEntity.ok().body(obj);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Cliente> findAll(){
-        List<Cliente> clientes=  clienteService.findAll();
-        return clientes;
+    public ResponseEntity<List<ClienteResponse>> findAll(){
+        return ResponseEntity.ok().body(service.findAll());
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Cliente create(@RequestBody Cliente cliente){
-        return clienteService.create(cliente);
+    public ResponseEntity<?> create(@RequestBody Cliente cliente){
+        cliente = service.create(cliente);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Cliente update(@PathVariable Integer id, @RequestBody Cliente cliente){
-        return clienteService.update(id, cliente);
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Cliente cliente){
+        cliente.setId(id);
+        service.update(cliente);
+        return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete (@PathVariable Integer id){
-        clienteService.delete(id);
+    public  ResponseEntity<?> delete (@PathVariable Integer id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

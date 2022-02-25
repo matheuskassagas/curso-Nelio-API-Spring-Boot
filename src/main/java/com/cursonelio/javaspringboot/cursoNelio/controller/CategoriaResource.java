@@ -1,9 +1,8 @@
 package com.cursonelio.javaspringboot.cursoNelio.controller;
 
 
-import com.cursonelio.javaspringboot.cursoNelio.dto.CategoriaResponse;
+import com.cursonelio.javaspringboot.cursoNelio.dto.Response.CategoriaResponse;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Categoria;
-import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFounfException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +39,7 @@ public class CategoriaResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?>  update(@PathVariable Integer id, @RequestBody Categoria categoria){
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Categoria categoria){
         categoria.setId(id);
         service.update(categoria);
         return ResponseEntity.noContent().build();

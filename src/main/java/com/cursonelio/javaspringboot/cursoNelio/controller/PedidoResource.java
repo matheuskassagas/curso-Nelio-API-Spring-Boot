@@ -1,5 +1,6 @@
 package com.cursonelio.javaspringboot.cursoNelio.controller;
 
+import com.cursonelio.javaspringboot.cursoNelio.dto.Response.PedidoResponse;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,32 +14,16 @@ import java.util.List;
 public class PedidoResource {
 
     @Autowired
-    private PedidoService pedidoService;
+    private PedidoService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> find(@PathVariable Integer id){
-        Pedido obj = pedidoService.buscar(id);
+        Pedido obj = service.find(id);
         return ResponseEntity.ok().body(obj);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Pedido> findAll(){
-        List<Pedido> pedidos=  pedidoService.findAll();
-        return pedidos;
-    }
-
-    @RequestMapping(method = RequestMethod.POST)
-    public Pedido create(@RequestBody Pedido pedido){
-        return pedidoService.create(pedido);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Pedido update(@PathVariable Integer id, @RequestBody Pedido pedido){
-        return pedidoService.update(id, pedido);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public void delete (@PathVariable Integer id){
-        pedidoService.delete(id);
+    public ResponseEntity<List<PedidoResponse>> findAll(){
+        return ResponseEntity.ok().body(service.findAll());
     }
 }

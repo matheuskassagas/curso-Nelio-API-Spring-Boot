@@ -1,4 +1,4 @@
-package com.cursonelio.javaspringboot.cursoNelio.dto;
+package com.cursonelio.javaspringboot.cursoNelio.dto.Response;
 
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Categoria;
 
