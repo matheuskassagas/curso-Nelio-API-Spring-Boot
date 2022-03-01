@@ -1,5 +1,6 @@
 package com.cursonelio.javaspringboot.cursoNelio.repository.entity;
 
+import com.cursonelio.javaspringboot.cursoNelio.dto.Request.ClienteRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.TipoCliente;
 
@@ -39,6 +40,7 @@ public class Cliente implements Serializable {
         this.cpfOuCnpj = cpfOuCnpj;
         this.tipoCliente = tipoCliente.getCod();
     }
+
 
     public Integer getId() {
         return id;

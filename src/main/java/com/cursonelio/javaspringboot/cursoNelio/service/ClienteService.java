@@ -1,5 +1,6 @@
 package com.cursonelio.javaspringboot.cursoNelio.service;
 
+import com.cursonelio.javaspringboot.cursoNelio.dto.Request.ClienteRequest;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Response.ClienteResponse;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
 import com.cursonelio.javaspringboot.cursoNelio.repository.ClienteRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFounfException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,29 +21,44 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repository;
 
+    @Transactional(readOnly = true)
     public Cliente find(Integer id) {
         Optional<Cliente> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFounfException(("" +
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName())));
     }
 
+    @Transactional(readOnly = true)
+    public ClienteResponse findClienteId (Integer id){
+        Optional<Cliente> cliente = repository.findById(id);
+        return new ClienteResponse().toResponse(cliente.get());
+    }
+
+    @Transactional(readOnly = true)
     public List<ClienteResponse> findAll(){
         return repository.findAll().stream().map(cliente -> new ClienteResponse().toResponse(cliente)).collect(Collectors.toList());
     }
 
-    public Cliente create (Cliente cliente){
-        return repository.save(cliente);
+    @Transactional
+    public ClienteRequest create (ClienteRequest clienteRequest){
+        Cliente cliente = clienteRequest.toModel(clienteRequest);
+        cliente = repository.save(cliente);
+        return clienteRequest;
 
     }
 
-    public Cliente update(Cliente cliente){
-        Cliente clienteFind = find(cliente.getId());
-        clienteFind.setId(cliente.getId());
-        clienteFind.setNome(cliente.getNome());
-        cliente = repository.save(clienteFind);
-        return cliente;
+    @Transactional
+    public Cliente update (ClienteRequest clienteRequest) throws Exception{
+        Optional<Cliente> clienteFind = repository.findById(clienteRequest.getId());
+        if (clienteFind.isEmpty()){
+            throw new Exception("Id not found");
+        }
+        Cliente cliente = clienteRequest.toModel(clienteRequest);
+        //Cliente cliente = new Cliente(clienteRequest.getId(), clienteRequest.getNome(), clienteRequest.getEmail(), clienteRequest.getCpfOuCnpj(), clienteRequest.getTipoCliente());
+        return cliente = repository.save(cliente);
     }
 
+    @Transactional
     public void delete(Integer id){
         find(id);
         try {
