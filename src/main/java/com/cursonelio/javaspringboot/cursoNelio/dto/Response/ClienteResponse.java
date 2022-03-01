@@ -1,15 +1,13 @@
 package com.cursonelio.javaspringboot.cursoNelio.dto.Response;
 
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
-import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.TipoCliente;
+
 
 public class ClienteResponse {
 
     private Integer id;
     private String nome;
     private String email;
-    private String cpfOuCnpj;
-    private TipoCliente tipoCliente;
 
     public ClienteResponse() {
     }
@@ -17,19 +15,14 @@ public class ClienteResponse {
         id = cliente.getId();
         nome = cliente.getNome();
         email = cliente.getEmail();
-        cpfOuCnpj = cliente.getCpfOuCnpj();
-        tipoCliente = cliente.getTipoCliente();
     }
 
-    public ClienteResponse(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
+    public ClienteResponse(Integer id, String nome, String email) {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.cpfOuCnpj = cpfOuCnpj;
-        this.tipoCliente = tipoCliente;
+
     }
-
-
 
     public Integer getId() {
         return id;
@@ -55,22 +48,8 @@ public class ClienteResponse {
         this.email = email;
     }
 
-    public String getCpfOuCnpj() {
-        return cpfOuCnpj;
-    }
 
-    public void setCpfOuCnpj(String cpfOuCnpj) {
-        this.cpfOuCnpj = cpfOuCnpj;
-    }
-
-    public TipoCliente getTipoCliente() {
-        return tipoCliente;
-    }
-
-    public void setTipoCliente(TipoCliente tipoCliente) {
-        this.tipoCliente = tipoCliente;
-    }
     public ClienteResponse toResponse (Cliente cliente){
-        return new ClienteResponse(cliente.getId(), cliente.getNome(), cliente.getEmail(), cliente.getCpfOuCnpj(), cliente.getTipoCliente());
+        return new ClienteResponse(cliente.getId(), cliente.getNome(), cliente.getEmail());
     }
 }

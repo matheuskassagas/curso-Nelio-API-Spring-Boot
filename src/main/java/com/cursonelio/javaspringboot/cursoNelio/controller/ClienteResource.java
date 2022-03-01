@@ -1,9 +1,12 @@
 package com.cursonelio.javaspringboot.cursoNelio.controller;
 
 import com.cursonelio.javaspringboot.cursoNelio.dto.Request.ClienteRequest;
+import com.cursonelio.javaspringboot.cursoNelio.dto.Response.CategoriaResponse;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Response.ClienteResponse;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Categoria;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.cursonelio.javaspringboot.cursoNelio.service.ClienteService;
@@ -55,5 +58,16 @@ public class ClienteResource {
     public  ResponseEntity<?> delete (@PathVariable Integer id){
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    public  ResponseEntity<Page<ClienteResponse>> findPage(
+            @RequestParam(value="page", defaultValue="0") Integer page,
+            @RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage,
+            @RequestParam(value="orderBy", defaultValue ="nome") String orderBy,
+            @RequestParam(value="direction", defaultValue ="ASC") String direction){
+        Page<Cliente> list = service.findPage(page, linesPerPage, orderBy, direction);
+        Page<ClienteResponse> listDTO = list.map(obj -> new ClienteResponse(obj));
+        return ResponseEntity.ok().body(listDTO);
     }
 }

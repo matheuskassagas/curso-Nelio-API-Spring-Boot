@@ -2,11 +2,15 @@ package com.cursonelio.javaspringboot.cursoNelio.service;
 
 import com.cursonelio.javaspringboot.cursoNelio.dto.Request.ClienteRequest;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Response.ClienteResponse;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Categoria;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
 import com.cursonelio.javaspringboot.cursoNelio.repository.ClienteRepository;
 import com.cursonelio.javaspringboot.cursoNelio.service.exception.DataIntegrityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFounfException;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,9 +57,12 @@ public class ClienteService {
         if (clienteFind.isEmpty()){
             throw new Exception("Id not found");
         }
+
         Cliente cliente = clienteRequest.toModel(clienteRequest);
-        //Cliente cliente = new Cliente(clienteRequest.getId(), clienteRequest.getNome(), clienteRequest.getEmail(), clienteRequest.getCpfOuCnpj(), clienteRequest.getTipoCliente());
+        //Cliente cliente = new Cliente(clienteRequest.getId(), clienteRequest.getNome(), clienteRequest.getEmail(), null, null);
         return cliente = repository.save(cliente);
+
+
     }
 
     @Transactional
@@ -66,5 +73,10 @@ public class ClienteService {
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityException("Nao é possivel excluir uma categoria que possui produtos");
         }
+    }
+
+    public Page<Cliente> findPage (Integer page, Integer linesPerPage, String orderBy, String direction){
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+        return repository.findAll(pageRequest);
     }
 }

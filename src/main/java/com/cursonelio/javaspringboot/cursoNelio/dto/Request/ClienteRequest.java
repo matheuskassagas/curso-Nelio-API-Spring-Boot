@@ -6,7 +6,6 @@ import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.TipoClie
 
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 public class ClienteRequest {
@@ -17,6 +16,7 @@ public class ClienteRequest {
     @Email
     private String email;
     @CpfouCnpjValido
+    @NotEmpty
     private String cpfOuCnpj;
     private TipoCliente tipoCliente;
 
