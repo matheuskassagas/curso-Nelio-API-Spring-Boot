@@ -57,13 +57,11 @@ public class ClienteService {
         if (clienteFind.isEmpty()){
             throw new Exception("Id not found");
         }
-
         Cliente cliente = clienteRequest.toModel(clienteRequest);
         //Cliente cliente = new Cliente(clienteRequest.getId(), clienteRequest.getNome(), clienteRequest.getEmail(), null, null);
         return cliente = repository.save(cliente);
-
-
     }
+
 
     @Transactional
     public void delete(Integer id){
@@ -71,7 +69,7 @@ public class ClienteService {
         try {
             repository.deleteById(id);
         } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityException("Nao é possivel excluir uma categoria que possui produtos");
+            throw new DataIntegrityException("Nao é possivel excluir por que há entidades relacionadas");
         }
     }
 
