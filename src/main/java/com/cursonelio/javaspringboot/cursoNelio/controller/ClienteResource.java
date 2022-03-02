@@ -1,6 +1,7 @@
 package com.cursonelio.javaspringboot.cursoNelio.controller;
 
 import com.cursonelio.javaspringboot.cursoNelio.dto.Request.ClienteRequest;
+import com.cursonelio.javaspringboot.cursoNelio.dto.Request.ClienteRequestNew;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Response.CategoriaResponse;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Response.ClienteResponse;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Categoria;
@@ -41,9 +42,10 @@ public class ClienteResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> create(@Valid @RequestBody ClienteRequest clienteRequest){
-        clienteRequest = service.create(clienteRequest);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(clienteRequest.getId()).toUri();
+    public ResponseEntity<?> create(@Valid @RequestBody ClienteRequestNew clienteRequestNew){
+        Cliente obj = service.fromDTO(clienteRequestNew);
+        obj = service.create(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 

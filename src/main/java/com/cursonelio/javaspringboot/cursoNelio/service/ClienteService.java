@@ -1,10 +1,16 @@
 package com.cursonelio.javaspringboot.cursoNelio.service;
 
 import com.cursonelio.javaspringboot.cursoNelio.dto.Request.ClienteRequest;
+import com.cursonelio.javaspringboot.cursoNelio.dto.Request.ClienteRequestNew;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Response.ClienteResponse;
+import com.cursonelio.javaspringboot.cursoNelio.repository.CidadeRepository;
+import com.cursonelio.javaspringboot.cursoNelio.repository.EnderecoRepository;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Categoria;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cidade;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
 import com.cursonelio.javaspringboot.cursoNelio.repository.ClienteRepository;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Endereco;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.TipoCliente;
 import com.cursonelio.javaspringboot.cursoNelio.service.exception.DataIntegrityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -25,6 +31,9 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repository;
 
+    @Autowired
+    private EnderecoRepository enderecoRepository;
+
     @Transactional(readOnly = true)
     public Cliente find(Integer id) {
         Optional<Cliente> obj = repository.findById(id);
@@ -44,11 +53,23 @@ public class ClienteService {
     }
 
     @Transactional
-    public ClienteRequest create (ClienteRequest clienteRequest){
-        Cliente cliente = clienteRequest.toModel(clienteRequest);
-        cliente = repository.save(cliente);
-        return clienteRequest;
+    public Cliente create (Cliente cliente){
+        repository.save(cliente);
+        enderecoRepository.saveAll(cliente.getEnderecos());
+        return cliente;
+    }
 
+    public Cliente fromDTO (ClienteRequestNew clienteRequestNew){
+        Cliente cli = new Cliente(null, clienteRequestNew.getNome(), clienteRequestNew.getEmail(), clienteRequestNew.getCpfOuCnpj(), TipoCliente.toEnum(clienteRequestNew.getTipoCliente()));
+        Endereco end = new Endereco(null, clienteRequestNew.getLogradouro(), clienteRequestNew.getNumero(), clienteRequestNew.getComplemento(), clienteRequestNew.getBairro(), clienteRequestNew.getCep(), cli, null);
+        cli.getEnderecos().add(end);
+        cli.getTelefones().add(clienteRequestNew.getTelefones1());
+        if (clienteRequestNew.getTelefones2()!=null){
+            cli.getTelefones().add(clienteRequestNew.getTelefones2());
+        }
+        if (clienteRequestNew.getTelefones3()!=null){
+            cli.getTelefones().add(clienteRequestNew.getTelefones3());
+        }return cli;
     }
 
     @Transactional
@@ -58,8 +79,8 @@ public class ClienteService {
             throw new Exception("Id not found");
         }
         Cliente cliente = clienteRequest.toModel(clienteRequest);
-        //Cliente cliente = new Cliente(clienteRequest.getId(), clienteRequest.getNome(), clienteRequest.getEmail(), null, null);
-        return cliente = repository.save(cliente);
+        // Cliente cliente = new Cliente(clienteRequest.getId(), clienteRequest.getNome(), clienteRequest.getEmail());
+        return repository.save(cliente);
     }
 
 
