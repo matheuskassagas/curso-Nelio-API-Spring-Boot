@@ -1,5 +1,6 @@
 package com.cursonelio.javaspringboot.cursoNelio.dto.Request;
 
+import com.cursonelio.javaspringboot.cursoNelio.service.validation.ClienteUpdate;
 import com.cursonelio.javaspringboot.cursoNelio.service.validation.CpfouCnpjValido;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.TipoCliente;
@@ -8,6 +9,7 @@ import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.TipoClie
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+@ClienteUpdate
 public class ClienteRequest {
 
     private Integer id;
