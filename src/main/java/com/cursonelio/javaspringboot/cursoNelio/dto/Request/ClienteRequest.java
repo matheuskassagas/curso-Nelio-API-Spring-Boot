@@ -1,19 +1,12 @@
 package com.cursonelio.javaspringboot.cursoNelio.dto.Request;
 
-import com.cursonelio.javaspringboot.cursoNelio.annotations.CpfouCnpjValido;
+import com.cursonelio.javaspringboot.cursoNelio.service.validation.CpfouCnpjValido;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
-import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Endereco;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.TipoCliente;
 
 
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class ClienteRequest {
 

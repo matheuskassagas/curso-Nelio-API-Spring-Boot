@@ -1,4 +1,4 @@
-package com.cursonelio.javaspringboot.cursoNelio.annotations;
+package com.cursonelio.javaspringboot.cursoNelio.service.validation;
 
 
 import org.hibernate.validator.constraints.CompositionType;
@@ -22,9 +22,9 @@ import java.lang.annotation.Target;
 @ReportAsSingleViolation
 @ConstraintComposition(CompositionType.OR)
 public @interface CpfouCnpjValido {
+
     String message() default "CPF/CNPJ inválido.";
 
     Class<?>[] groups() default {};
-
     Class<? extends Payload>[] payload() default {};
 }

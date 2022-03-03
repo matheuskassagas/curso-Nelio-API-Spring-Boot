@@ -1,14 +1,12 @@
 package com.cursonelio.javaspringboot.cursoNelio.dto.Request;
 
-import com.cursonelio.javaspringboot.cursoNelio.annotations.CpfouCnpjValido;
-import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
-import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Endereco;
-import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.TipoCliente;
+import com.cursonelio.javaspringboot.cursoNelio.service.validation.ClienteInsert;
+import com.cursonelio.javaspringboot.cursoNelio.service.validation.CpfouCnpjValido;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import java.util.Set;
 
+@ClienteInsert
 public class ClienteRequestNew {
 
     @NotEmpty(message = "Preenchimento obrigatorio")
@@ -17,16 +15,18 @@ public class ClienteRequestNew {
     @Email
     private String email;
     @NotEmpty
-    @CpfouCnpjValido
     private String cpfOuCnpj;
     private Integer tipoCliente;
-
+    @NotEmpty
     private String logradouro;
+    @NotEmpty
     private String numero;
     private String complemento;
     private String bairro;
+    @NotEmpty
     private String cep;
 
+    @NotEmpty
     private String telefones1;
     private String telefones2;
     private String telefones3;
