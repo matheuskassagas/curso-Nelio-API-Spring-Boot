@@ -69,7 +69,8 @@ public class ClienteService {
         }
         if (clienteRequestNew.getTelefones3()!=null){
             cli.getTelefones().add(clienteRequestNew.getTelefones3());
-        }return cli;
+        }
+        return cli;
     }
 
     @Transactional

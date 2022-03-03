@@ -1,6 +1,8 @@
 package com.cursonelio.javaspringboot.cursoNelio.controller;
 
+import com.cursonelio.javaspringboot.cursoNelio.dto.Response.ClienteResponse;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Response.PedidoResponse;
+import com.cursonelio.javaspringboot.cursoNelio.dto.Response.ProdutoResponse;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,12 @@ public class PedidoResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> find(@PathVariable Integer id){
         Pedido obj = service.find(id);
+        return ResponseEntity.ok().body(obj);
+    }
+
+    @RequestMapping(value = "/pedido/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> findPedido (@PathVariable Integer id){
+        PedidoResponse obj = service.findClienteId(id);
         return ResponseEntity.ok().body(obj);
     }
 

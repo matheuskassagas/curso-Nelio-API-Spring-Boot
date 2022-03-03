@@ -50,4 +50,6 @@ public class ClienteUpdateValidator implements ConstraintValidator<ClienteUpdate
         }
         return list.isEmpty();
     }
+
+
 }
