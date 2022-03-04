@@ -2,10 +2,12 @@ package com.cursonelio.javaspringboot.cursoNelio.repository.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
 import java.util.Date;
 @Entity
+@JsonTypeName("pagamentoComBoleto")
 public class PagamentoComBoleto extends Pagamento{
     private static final long serialVerisionUID = 1L;
 
