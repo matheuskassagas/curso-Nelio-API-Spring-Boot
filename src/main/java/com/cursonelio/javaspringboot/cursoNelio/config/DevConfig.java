@@ -1,6 +1,8 @@
 package com.cursonelio.javaspringboot.cursoNelio.config;
 
 import com.cursonelio.javaspringboot.cursoNelio.service.DBService;
+import com.cursonelio.javaspringboot.cursoNelio.service.EmailService;
+import com.cursonelio.javaspringboot.cursoNelio.service.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -28,5 +30,10 @@ public class DevConfig {
     }
         dbService.instantiateTestDataBase();
         return true;
+    }
+
+    @Bean
+    public EmailService smtpEmailService(){
+        return new SmtpEmailService();
     }
 }

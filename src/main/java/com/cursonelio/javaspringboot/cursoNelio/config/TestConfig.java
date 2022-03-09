@@ -3,6 +3,7 @@ package com.cursonelio.javaspringboot.cursoNelio.config;
 import com.cursonelio.javaspringboot.cursoNelio.service.DBService;
 import com.cursonelio.javaspringboot.cursoNelio.service.EmailService;
 import com.cursonelio.javaspringboot.cursoNelio.service.MockEmailService;
+import com.cursonelio.javaspringboot.cursoNelio.service.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,5 +28,10 @@ public class TestConfig {
     @Bean
     public EmailService emailService(){
         return new MockEmailService();
+    }
+
+    @Bean
+    public EmailService smtpEmailService(){
+        return new SmtpEmailService();
     }
 }
