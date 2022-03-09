@@ -8,9 +8,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+
+
 import java.util.Date;
 
 public abstract class AbstractEmailService implements EmailService {
@@ -48,10 +49,11 @@ public abstract class AbstractEmailService implements EmailService {
 
     @Override
     public void sendOrderConfirmationHtmlEmail(Pedido obj) {
-        try{
+        try {
             MimeMessage mm = prepareMimeMessageFromPedido(obj);
             sendHtmlEmail(mm);
-        }catch (MessagingException e){
+        }
+        catch (MessagingException e) {
             sendOrderConfimationEmail(obj);
         }
 
@@ -62,7 +64,7 @@ public abstract class AbstractEmailService implements EmailService {
         MimeMessageHelper mmh = new MimeMessageHelper(mimeMessage, true);
         mmh.setTo(obj.getCliente().getEmail());
         mmh.setFrom(emailFrom);
-        mmh.setSubject("Pedido de Numero: " + obj.getId() + " Confirmado");
+        mmh.setSubject("Pedido confirmado! Código: " + obj.getId());
         mmh.setSentDate(new Date(System.currentTimeMillis()));
         mmh.setText(htmlFromTemplatePedido(obj), true);
         return mimeMessage;
