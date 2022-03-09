@@ -1,6 +1,8 @@
 package com.cursonelio.javaspringboot.cursoNelio.config;
 
 import com.cursonelio.javaspringboot.cursoNelio.service.DBService;
+import com.cursonelio.javaspringboot.cursoNelio.service.EmailService;
+import com.cursonelio.javaspringboot.cursoNelio.service.MockEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,5 +22,10 @@ public class TestConfig {
     public boolean instantiateDataBase() throws ParseException {
         dbService.instantiateTestDataBase();
         return true;
+    }
+
+    @Bean
+    public EmailService emailService(){
+        return new MockEmailService();
     }
 }
