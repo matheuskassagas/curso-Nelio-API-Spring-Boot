@@ -1,15 +1,15 @@
 package com.cursonelio.javaspringboot.cursoNelio.config;
 
 import com.cursonelio.javaspringboot.cursoNelio.service.DBService;
-import com.cursonelio.javaspringboot.cursoNelio.service.EmailService;
-import com.cursonelio.javaspringboot.cursoNelio.service.SmtpEmailService;
+import com.cursonelio.javaspringboot.cursoNelio.service.EmailService.EmailService;
+
+import com.cursonelio.javaspringboot.cursoNelio.service.EmailService.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import javax.validation.Valid;
 import java.text.ParseException;
 
 

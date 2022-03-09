@@ -1,8 +1,6 @@
 package com.cursonelio.javaspringboot.cursoNelio.service;
 
 
-import com.cursonelio.javaspringboot.cursoNelio.dto.Response.CategoriaResponse;
-import com.cursonelio.javaspringboot.cursoNelio.dto.Response.ClienteResponse;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Response.PedidoResponse;
 import com.cursonelio.javaspringboot.cursoNelio.repository.ItemPedidoRepository;
 import com.cursonelio.javaspringboot.cursoNelio.repository.PagamentoRepository;
@@ -10,6 +8,7 @@ import com.cursonelio.javaspringboot.cursoNelio.repository.ProdutoRepository;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.*;
 import com.cursonelio.javaspringboot.cursoNelio.repository.PedidoRepository;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.EstadoPagamento;
+import com.cursonelio.javaspringboot.cursoNelio.service.EmailService.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFounfException;

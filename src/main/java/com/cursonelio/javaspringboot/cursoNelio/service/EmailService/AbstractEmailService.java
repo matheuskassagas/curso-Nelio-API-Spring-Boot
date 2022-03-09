@@ -1,4 +1,4 @@
-package com.cursonelio.javaspringboot.cursoNelio.service;
+package com.cursonelio.javaspringboot.cursoNelio.service.EmailService;
 
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Pedido;
 import org.springframework.beans.factory.annotation.Value;
@@ -6,7 +6,7 @@ import org.springframework.mail.SimpleMailMessage;
 
 import java.util.Date;
 
-public class AbstractEmailService implements EmailService{
+public abstract class AbstractEmailService implements EmailService {
 
 
     @Value("${default.sender}")
@@ -18,10 +18,6 @@ public class AbstractEmailService implements EmailService{
         sendEmail(sm);
     }
 
-    @Override
-    public void sendEmail(SimpleMailMessage msg) {
-    }
-
     protected SimpleMailMessage prepareSimpleMailMessageFromPedido(Pedido obj) {
         SimpleMailMessage sm = new SimpleMailMessage();
         sm.setTo(obj.getCliente().getEmail());
@@ -31,6 +27,4 @@ public class AbstractEmailService implements EmailService{
         sm.setText(obj.toString());
         return sm;
     }
-
-
 }

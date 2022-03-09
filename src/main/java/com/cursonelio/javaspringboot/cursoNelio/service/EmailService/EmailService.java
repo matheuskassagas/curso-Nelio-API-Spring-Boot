@@ -1,4 +1,4 @@
-package com.cursonelio.javaspringboot.cursoNelio.service;
+package com.cursonelio.javaspringboot.cursoNelio.service.EmailService;
 
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Pedido;
 import org.springframework.mail.SimpleMailMessage;

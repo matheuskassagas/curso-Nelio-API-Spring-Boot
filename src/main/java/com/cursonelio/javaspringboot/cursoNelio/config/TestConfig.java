@@ -1,9 +1,9 @@
 package com.cursonelio.javaspringboot.cursoNelio.config;
 
 import com.cursonelio.javaspringboot.cursoNelio.service.DBService;
-import com.cursonelio.javaspringboot.cursoNelio.service.EmailService;
-import com.cursonelio.javaspringboot.cursoNelio.service.MockEmailService;
-import com.cursonelio.javaspringboot.cursoNelio.service.SmtpEmailService;
+import com.cursonelio.javaspringboot.cursoNelio.service.EmailService.EmailService;
+import com.cursonelio.javaspringboot.cursoNelio.service.EmailService.MockEmailService;
+import com.cursonelio.javaspringboot.cursoNelio.service.EmailService.SmtpEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
