@@ -2,11 +2,8 @@ package com.cursonelio.javaspringboot.cursoNelio.service;
 
 
 import com.cursonelio.javaspringboot.cursoNelio.dto.Response.PedidoResponse;
-import com.cursonelio.javaspringboot.cursoNelio.repository.ItemPedidoRepository;
-import com.cursonelio.javaspringboot.cursoNelio.repository.PagamentoRepository;
-import com.cursonelio.javaspringboot.cursoNelio.repository.ProdutoRepository;
+import com.cursonelio.javaspringboot.cursoNelio.repository.*;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.*;
-import com.cursonelio.javaspringboot.cursoNelio.repository.PedidoRepository;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.EstadoPagamento;
 import com.cursonelio.javaspringboot.cursoNelio.service.EmailService.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +35,15 @@ public class PedidoService {
     private ItemPedidoRepository itemPedidoRepository;
 
     @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
     private EmailService emailService;
 
     public Pedido create (Pedido obj){
         obj.setId(null);
         obj.setInstante(new Date());
+        obj.setCliente(clienteRepository.findById(obj.getCliente().getId()).get());
         obj.getPagamento().setEstadoPagamento(EstadoPagamento.PENDENTE);
         obj.getPagamento().setPedido(obj);
         if (obj.getPagamento() instanceof PagamentoComBoleto){
@@ -53,11 +54,12 @@ public class PedidoService {
         pagamentoRepository.save(obj.getPagamento());
         for (ItemPedido ip : obj.getItens()){
             ip.setDesconto(0.0);
-            ip.setPreco(produtoRepository.findById(ip.getProduto().getId()).get().getPreco());
+            ip.setProduto(produtoRepository.findById(ip.getProduto().getId()).get());
+            ip.setPreco(ip.getProduto().getPreco());
             ip.setPedido(obj);
         }
         itemPedidoRepository.saveAll(obj.getItens());
-        emailService.sendOrderConfimationEmail(obj);
+        emailService.sendOrderConfirmationHtmlEmail(obj);
         return obj;
     }
 

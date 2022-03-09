@@ -30,8 +30,4 @@ public class TestConfig {
         return new MockEmailService();
     }
 
-    @Bean
-    public EmailService smtpEmailService(){
-        return new SmtpEmailService();
-    }
 }
