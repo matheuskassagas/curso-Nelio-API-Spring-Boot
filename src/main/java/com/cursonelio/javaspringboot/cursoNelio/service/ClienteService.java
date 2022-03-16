@@ -17,6 +17,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFounfException;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,9 @@ public class ClienteService {
 
     @Autowired
     private EnderecoRepository enderecoRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional(readOnly = true)
     public Cliente find(Integer id) {
@@ -60,7 +64,7 @@ public class ClienteService {
     }
 
     public Cliente fromDTO (ClienteRequestNew clienteRequestNew){
-        Cliente cli = new Cliente(null, clienteRequestNew.getNome(), clienteRequestNew.getEmail(), clienteRequestNew.getCpfOuCnpj(), TipoCliente.toEnum(clienteRequestNew.getTipoCliente()));
+        Cliente cli = new Cliente(null, clienteRequestNew.getNome(), clienteRequestNew.getEmail(), clienteRequestNew.getCpfOuCnpj(), TipoCliente.toEnum(clienteRequestNew.getTipoCliente()), bCryptPasswordEncoder.encode(clienteRequestNew.getSenha()));
         Endereco end = new Endereco(null, clienteRequestNew.getLogradouro(), clienteRequestNew.getNumero(), clienteRequestNew.getComplemento(), clienteRequestNew.getBairro(), clienteRequestNew.getCep(), cli, null);
         cli.getEnderecos().add(end);
         cli.getTelefones().add(clienteRequestNew.getTelefones1());

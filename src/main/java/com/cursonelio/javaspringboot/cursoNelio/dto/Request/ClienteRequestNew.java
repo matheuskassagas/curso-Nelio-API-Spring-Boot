@@ -17,6 +17,10 @@ public class ClienteRequestNew {
     @NotEmpty
     private String cpfOuCnpj;
     private Integer tipoCliente;
+
+    @NotEmpty
+    private String senha;
+
     @NotEmpty
     private String logradouro;
     @NotEmpty
@@ -68,6 +72,13 @@ public class ClienteRequestNew {
         this.tipoCliente = tipoCliente;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
     public String getLogradouro() {
         return logradouro;

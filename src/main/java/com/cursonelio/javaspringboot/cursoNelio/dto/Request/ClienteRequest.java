@@ -22,16 +22,19 @@ public class ClienteRequest {
     @NotEmpty
     private String cpfOuCnpj;
     private TipoCliente tipoCliente;
+    @NotEmpty
+    private String senha;
 
     public ClienteRequest() {
     }
 
-    public ClienteRequest(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente) {
+    public ClienteRequest(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipoCliente, String senha) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
         this.tipoCliente = tipoCliente;
+        this.senha = senha;
     }
 
     public Integer getId() {
@@ -74,7 +77,15 @@ public class ClienteRequest {
         this.tipoCliente = tipoCliente;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     public Cliente toModel (ClienteRequest clienteRequest){
-        return new Cliente(clienteRequest.getId(), clienteRequest.getNome(), clienteRequest.getEmail(), clienteRequest.getCpfOuCnpj(), clienteRequest.getTipoCliente());
+        return new Cliente(clienteRequest.getId(), clienteRequest.getNome(), clienteRequest.getEmail(), clienteRequest.getCpfOuCnpj(), clienteRequest.getTipoCliente(), clienteRequest.getSenha());
     }
 }
