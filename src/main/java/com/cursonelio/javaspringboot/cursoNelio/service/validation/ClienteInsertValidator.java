@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+
+//45
 public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert, ClienteRequestNew> {
 
     @Autowired

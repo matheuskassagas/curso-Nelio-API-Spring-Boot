@@ -27,15 +27,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private Environment environment;
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
     private static final String[] PUBLIC_MATCHERS = {
-            "~/h2-console/**"
+            "/h2-console/**"
     };
 
     private static final String[] PUBLIC_MATCHERS_GET = {
             "/produtos/**",
             "/categorias/**",
-            "/clientes/**"
-
     };
 
     @Override
@@ -51,6 +52,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
                 .anyRequest().authenticated();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Bean

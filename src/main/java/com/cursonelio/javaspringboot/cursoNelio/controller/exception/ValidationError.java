@@ -2,7 +2,7 @@ package com.cursonelio.javaspringboot.cursoNelio.controller.exception;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//40
 public class ValidationError extends StandardError{
     private static final long serialVersionUID = 1L;
 

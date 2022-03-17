@@ -10,7 +10,11 @@ import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)//mapeando as heranças
+//53
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
+  /* quando for enviar um obj do tipo da superclasse (PAGAMENTO), indica qual o a subclasse esta sendo usada, instanciada
+  exemplo - @type pagamentoComCartao /// o jackson (classe de config) vai ser capaz de instanciar o pagamento especifico!
+  */
 public abstract class Pagamento implements Serializable {
     private static final long serialVerisionUID = 1L;
 

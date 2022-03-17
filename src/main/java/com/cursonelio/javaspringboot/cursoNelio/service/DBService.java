@@ -58,7 +58,6 @@ public class DBService {
         Produto p10 = new Produto(null, "Pendente", 180.00);
         Produto p11 = new Produto(null, "Shampoo", 90.00);
 
-
         cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3));
         cat2.getProdutos().addAll(Arrays.asList(p2, p4));
         cat3.getProdutos().addAll(Arrays.asList(p5, p6));
@@ -79,10 +78,10 @@ public class DBService {
         p10.getCategorias().addAll(Arrays.asList(cat6));
         p11.getCategorias().addAll(Arrays.asList(cat7));
 
-        categoriaRepository.saveAll(Arrays.asList(cat1,cat2, cat3, cat4, cat5, cat6, cat7));//salvando no banco
+        categoriaRepository.saveAll(Arrays.asList(cat1,cat2, cat3, cat4, cat5, cat6, cat7)); //salvando no banco
         produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 
-        Estado est1 = new Estado(null, "Minas Gerais" );
+        Estado est1 = new Estado(null, "Minas Gerais");
         Estado est2 = new Estado(null, "Sao Paulo" );
 
         Cidade c1 = new Cidade(null, "Uberlandia", est1);
@@ -98,7 +97,6 @@ public class DBService {
         Cliente cli1 = new Cliente(null, "Maria Silva", "mgigliotti31@gmail.com", "243.176.440-02", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("123"));
         cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 
-
         Cliente cli2 = new Cliente(null, "Ana Costa", "mgigliotti31@gmail.com", "402.455.480-84", TipoCliente.PESSOAFISICA, bCryptPasswordEncoder.encode("123"));
         cli2.addPerfil(Perfil.ADMIN);
         cli1.getTelefones().addAll(Arrays.asList("34991200000", "3432235672"));
@@ -106,7 +104,6 @@ public class DBService {
         Endereco e1 = new Endereco(null, "Rua das FLores", "300", "apto 203", "Jardim", "38220834", cli1, c1);
         Endereco e2 = new Endereco(null, "Avenida Matos", "105", "sala 800", "Centro", "38777012", cli1, c2);
         Endereco e3 = new Endereco(null, "Avenida Floriano", "1050", null, "Centro", "38400676", cli2, c1);
-
 
         cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
         cli2.getEnderecos().addAll(Arrays.asList(e3));
