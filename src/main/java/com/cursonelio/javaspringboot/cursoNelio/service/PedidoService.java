@@ -46,7 +46,7 @@ public class PedidoService {
         obj.setCliente(clienteRepository.findById(obj.getCliente().getId()).get());
         obj.getPagamento().setEstadoPagamento(EstadoPagamento.PENDENTE);
         obj.getPagamento().setPedido(obj);
-        if (obj.getPagamento() instanceof PagamentoComBoleto){
+        if (obj.getPagamento() instanceof PagamentoComBoleto){ //if my class pagamento it will be pagamentoComBoleto, do it....
             PagamentoComBoleto pagto = (PagamentoComBoleto) obj.getPagamento();
             boletoService.preencherPagamentoComBoleto(pagto, obj.getInstante());
         }
