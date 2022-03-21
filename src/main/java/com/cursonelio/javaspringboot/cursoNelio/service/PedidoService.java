@@ -5,8 +5,13 @@ import com.cursonelio.javaspringboot.cursoNelio.dto.Response.PedidoResponse;
 import com.cursonelio.javaspringboot.cursoNelio.repository.*;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.*;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.EstadoPagamento;
+import com.cursonelio.javaspringboot.cursoNelio.security.UserSS;
 import com.cursonelio.javaspringboot.cursoNelio.service.EmailService.EmailService;
+import com.cursonelio.javaspringboot.cursoNelio.service.exception.AuthorizationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFounfException;
 import org.springframework.transaction.annotation.Transactional;
@@ -80,4 +85,16 @@ public class PedidoService {
         Optional<Pedido> pedido = repository.findById(id);
         return new PedidoResponse().toResponse(pedido.get());
     }
-}
+
+    @Transactional(readOnly = true)
+    public Page<Pedido> findPage (Integer page, Integer linesPerPage, String orderBy, String direction){
+        UserSS user = UserService.authenticated();
+        if (user == null) {
+            throw new AuthorizationException("Acesso Negado");
+        }
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+           Cliente cliente = clienteRepository.findById(user.getId()).get();
+           return repository.findByCliente(cliente, pageRequest);
+        }
+    }
+

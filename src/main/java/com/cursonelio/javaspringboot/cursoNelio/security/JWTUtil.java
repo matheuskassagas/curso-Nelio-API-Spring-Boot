@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Component
@@ -22,6 +24,7 @@ public class JWTUtil {
     public String generateToken(String username){
         return Jwts.builder()
                 .setSubject(username)
+                .setExpiration(Date.from(LocalDateTime.now().plusHours(1).atZone(ZoneId.of("America/Sao_Paulo")).toInstant()))
                 .signWith(SignatureAlgorithm.HS512, secret.getBytes())
                 .compact();
     }
