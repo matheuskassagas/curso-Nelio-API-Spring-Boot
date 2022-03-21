@@ -9,6 +9,7 @@ import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.cursonelio.javaspringboot.cursoNelio.service.ClienteService;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -30,6 +31,7 @@ public class ClienteResource {
         return ResponseEntity.ok().body(obj);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/cliente/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> findCliente (@PathVariable Integer id){
         ClienteResponse obj = service.findClienteId(id);
@@ -56,6 +58,7 @@ public class ClienteResource {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public  ResponseEntity<?> delete (@PathVariable Integer id){
         service.delete(id);
