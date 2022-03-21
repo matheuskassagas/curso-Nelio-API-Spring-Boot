@@ -9,17 +9,17 @@ import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class UserSecurityDetails implements UserDetails {
+public class UserSS implements UserDetails {
 
     private Integer id;
     private String email;
     private String senha;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserSecurityDetails() {
+    public UserSS() {
     }
 
-    public UserSecurityDetails(Integer id, String email, String senha, Set<Perfil> perfis) {
+    public UserSS(Integer id, String email, String senha, Set<Perfil> perfis) {
         this.id = id;
         this.email = email;
         this.senha = senha;
@@ -63,5 +63,9 @@ public class UserSecurityDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean hasRole(Perfil perfil){
+        return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
     }
 }

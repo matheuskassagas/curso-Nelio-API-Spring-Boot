@@ -10,7 +10,10 @@ import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cidade;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
 import com.cursonelio.javaspringboot.cursoNelio.repository.ClienteRepository;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Endereco;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.Perfil;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.TipoCliente;
+import com.cursonelio.javaspringboot.cursoNelio.security.UserSS;
+import com.cursonelio.javaspringboot.cursoNelio.service.exception.AuthorizationException;
 import com.cursonelio.javaspringboot.cursoNelio.service.exception.DataIntegrityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -40,6 +43,12 @@ public class ClienteService {
 
     @Transactional(readOnly = true)
     public Cliente find(Integer id) {
+
+        UserSS user = UserService.authenticated();
+        if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())){
+            throw new AuthorizationException("Acesso Negado");
+        }
+
         Optional<Cliente> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFounfException(("" +
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName())));

@@ -2,7 +2,6 @@ package com.cursonelio.javaspringboot.cursoNelio.security;
 
 import com.cursonelio.javaspringboot.cursoNelio.dto.Request.UserRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -51,7 +50,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        String username = ((UserSecurityDetails) /* casting */ authResult.getPrincipal()).getUsername(); //getPrincipal retorna o usuario do SpringScurity, e fazemos um casting para user
+        String username = ((UserSS) /* casting */ authResult.getPrincipal()).getUsername(); //getPrincipal retorna o usuario do SpringScurity, e fazemos um casting para user
         String token = jwtUtil.generateToken(username);
         response.addHeader("Authorization", "Bearer " + token);
         response.addHeader("access-control-expose-headers", "Authorization");

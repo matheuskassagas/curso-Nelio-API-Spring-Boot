@@ -1,5 +1,6 @@
 package com.cursonelio.javaspringboot.cursoNelio.controller.exception;
 
+import com.cursonelio.javaspringboot.cursoNelio.service.exception.AuthorizationException;
 import com.cursonelio.javaspringboot.cursoNelio.service.exception.DataIntegrityException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,4 +36,9 @@ public class ResourceExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standardError);
     }
 
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request){
+        StandardError standardError = new StandardError(HttpStatus.FORBIDDEN.value(), e.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(standardError);
+    }
 }
