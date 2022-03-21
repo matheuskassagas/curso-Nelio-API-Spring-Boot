@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /*Filtro intercepta a requisição e exculta alguma coisa antes, dando certo ele devolve a requisição
-* filtro de authenticação, ele pega os dados da requisição e verifica a authenticacao*/
+* filtro de authenticação, ele pega os dados da requisição e verifica a authenticacao
+* gera o TOKEN
+* */
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter{// o spirng ja sabe que vai ter que interceptar
 
     private AuthenticationManager authenticationManager;
@@ -39,7 +41,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getSenha(), new ArrayList<>());
 
-            Authentication auth = authenticationManager.authenticate(authToken);
+            Authentication auth = authenticationManager.authenticate(authToken); //method que verifica se os dados sao validos, com base na implementacao do userdetailsservice, userdatails
             return auth;
         }
         catch (IOException e) {
@@ -49,7 +51,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        String username = ((UserSecurityDetails) authResult.getPrincipal()).getUsername();
+        String username = ((UserSecurityDetails) /* casting */ authResult.getPrincipal()).getUsername(); //getPrincipal retorna o usuario do SpringScurity, e fazemos um casting para user
         String token = jwtUtil.generateToken(username);
         response.addHeader("Authorization", "Bearer " + token);
         response.addHeader("access-control-expose-headers", "Authorization");
