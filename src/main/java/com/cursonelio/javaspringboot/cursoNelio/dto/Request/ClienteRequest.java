@@ -16,7 +16,7 @@ public class ClienteRequest {
     @NotEmpty(message = "Preenchimento obrigatorio")
     private String nome;
     @NotEmpty(message = "Preenchimento obrigatorio")
-    @Email
+    @Email(message = "Email invalido")
     private String email;
     @CpfouCnpjValido
     @NotEmpty

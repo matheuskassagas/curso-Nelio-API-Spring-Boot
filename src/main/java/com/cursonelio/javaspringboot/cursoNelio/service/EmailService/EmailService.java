@@ -1,5 +1,6 @@
 package com.cursonelio.javaspringboot.cursoNelio.service.EmailService;
 
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Pedido;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -15,5 +16,7 @@ public interface EmailService {
     void sendOrderConfirmationHtmlEmail(Pedido obj);
 
     void sendHtmlEmail(MimeMessage msg);
+
+    void sendNewPasswordEmail(Cliente cliente, String newPass);
 
 }

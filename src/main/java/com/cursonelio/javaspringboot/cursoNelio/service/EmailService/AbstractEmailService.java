@@ -1,5 +1,6 @@
 package com.cursonelio.javaspringboot.cursoNelio.service.EmailService;
 
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -69,4 +70,21 @@ public abstract class AbstractEmailService implements EmailService {
         mmh.setText(htmlFromTemplatePedido(obj), true);
         return mimeMessage;
     }
+
+    @Override
+    public void sendNewPasswordEmail(Cliente cliente, String newPass) {
+        SimpleMailMessage sm = prepareNewPasswordEmail(cliente, newPass);
+        sendEmail(sm);
+    }
+
+    protected SimpleMailMessage prepareNewPasswordEmail(Cliente cliente, String newPass) {
+        SimpleMailMessage sm = new SimpleMailMessage();
+        sm.setTo(cliente.getEmail());
+        sm.setFrom(emailFrom);
+        sm.setSubject("Solicitação de nova senha");
+        sm.setSentDate(new Date(System.currentTimeMillis()));
+        sm.setText("Nova senha: " + newPass);
+        return sm;
+    }
+
 }
