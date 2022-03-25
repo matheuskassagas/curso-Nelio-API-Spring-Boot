@@ -1,14 +1,14 @@
 package com.cursonelio.javaspringboot.cursoNelio.service.exception;
 
-public class ObjectNotFounfException extends RuntimeException{
+public class ObjectNotFoundException extends RuntimeException{
 
     private static final long serialVersionUID = 1L;
 
-    public ObjectNotFounfException(String msg){
+    public ObjectNotFoundException(String msg){
         super(msg);
     }
 
-    public ObjectNotFounfException(String msg, Throwable cause){
+    public ObjectNotFoundException(String msg, Throwable cause){
         super(msg, cause);
     }
 }

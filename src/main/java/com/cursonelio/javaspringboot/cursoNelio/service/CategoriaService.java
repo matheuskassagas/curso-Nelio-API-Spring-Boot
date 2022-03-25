@@ -1,10 +1,8 @@
 package com.cursonelio.javaspringboot.cursoNelio.service;
 
 import com.cursonelio.javaspringboot.cursoNelio.dto.Response.CategoriaResponse;
-import com.cursonelio.javaspringboot.cursoNelio.dto.Response.ClienteResponse;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Categoria;
 import com.cursonelio.javaspringboot.cursoNelio.repository.CategoriaRepository;
-import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
 import com.cursonelio.javaspringboot.cursoNelio.service.exception.DataIntegrityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -12,7 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFounfException;
+import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -28,7 +26,7 @@ public class CategoriaService {
     @Transactional(readOnly = true)
     public Categoria find(Integer id) {
         Optional<Categoria> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFounfException(("" +
+        return obj.orElseThrow(() -> new ObjectNotFoundException(("" +
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName())));
     }
 

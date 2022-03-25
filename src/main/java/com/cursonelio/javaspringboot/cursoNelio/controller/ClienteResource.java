@@ -1,10 +1,7 @@
 package com.cursonelio.javaspringboot.cursoNelio.controller;
 
-import com.cursonelio.javaspringboot.cursoNelio.dto.Request.ClienteRequest;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Request.ClienteRequestNew;
-import com.cursonelio.javaspringboot.cursoNelio.dto.Response.CategoriaResponse;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Response.ClienteResponse;
-import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Categoria;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.cursonelio.javaspringboot.cursoNelio.service.ClienteService;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -52,9 +50,10 @@ public class ClienteResource {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<?> update(@Valid @PathVariable Integer id, @RequestBody ClienteRequest clienteRequest) throws Exception {
-        clienteRequest.setId(id);
-        service.update(clienteRequest);
+    public ResponseEntity<?> update(@Valid @PathVariable Integer id, @RequestBody ClienteRequestNew clienteRequest) throws Exception {
+        Cliente obj = service.fromDTO(clienteRequest);
+        obj.setId(id);
+        obj = service.update(obj);
         return ResponseEntity.noContent().build();
     }
 
@@ -74,5 +73,11 @@ public class ClienteResource {
         Page<Cliente> list = service.findPage(page, linesPerPage, orderBy, direction);
         Page<ClienteResponse> listDTO = list.map(obj -> new ClienteResponse(obj));
         return ResponseEntity.ok().body(listDTO);
+    }
+
+    @RequestMapping(value="/picture", method=RequestMethod.POST)
+    public ResponseEntity<Void> uploadProfilePicture(@RequestParam(name="file") MultipartFile file) {
+        URI uri = service.uploadProfilePicture(file);
+        return ResponseEntity.created(uri).build();
     }
 }

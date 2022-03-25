@@ -40,7 +40,7 @@ public class PedidoResource {
 
     @RequestMapping(value = "/pedido/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> findPedido (@PathVariable Integer id){
-        PedidoResponse obj = service.findClienteId(id);
+        PedidoResponse obj = service.findPedidoId(id);
         return ResponseEntity.ok().body(obj);
     }
 

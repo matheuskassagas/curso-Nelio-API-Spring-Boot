@@ -18,7 +18,7 @@ import java.util.Arrays;
 public class CursoNelioApplication implements CommandLineRunner { //permiti implementar um metodo auxiliar
 
 	@Autowired
-	private S3Service service;
+//	private S3Service service;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoNelioApplication.class, args);
@@ -26,7 +26,7 @@ public class CursoNelioApplication implements CommandLineRunner { //permiti impl
 
 	@Override
 	public void run(String... args) throws Exception {
-		service.uploadFile("C:\\temp\\Capturar.PNG");
+//		service.uploadFile("C:\\temp\\Capturar.PNG");
 
 	}
 }

@@ -3,10 +3,7 @@ package com.cursonelio.javaspringboot.cursoNelio.service;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Request.ClienteRequest;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Request.ClienteRequestNew;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Response.ClienteResponse;
-import com.cursonelio.javaspringboot.cursoNelio.repository.CidadeRepository;
 import com.cursonelio.javaspringboot.cursoNelio.repository.EnderecoRepository;
-import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Categoria;
-import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cidade;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
 import com.cursonelio.javaspringboot.cursoNelio.repository.ClienteRepository;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Endereco;
@@ -14,6 +11,7 @@ import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.Perfil;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.enuns.TipoCliente;
 import com.cursonelio.javaspringboot.cursoNelio.security.UserSS;
 import com.cursonelio.javaspringboot.cursoNelio.service.exception.AuthorizationException;
+import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFoundException;
 import com.cursonelio.javaspringboot.cursoNelio.service.exception.DataIntegrityException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -22,9 +20,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFounfException;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,6 +40,9 @@ public class ClienteService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private S3Service s3Service;
+
     @Transactional(readOnly = true)
     public Cliente find(Integer id) {
 
@@ -50,7 +52,7 @@ public class ClienteService {
         }
 
         Optional<Cliente> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFounfException(("" +
+        return obj.orElseThrow(() -> new ObjectNotFoundException(("" +
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName())));
     }
 
@@ -64,6 +66,20 @@ public class ClienteService {
     public List<ClienteResponse> findAll(){
         return repository.findAll().stream().map(cliente -> new ClienteResponse().toResponse(cliente)).collect(Collectors.toList());
     }
+
+//    public Cliente findByEmail(String email) {
+//        UserSS user = UserService.authenticated();
+//        if (user == null || !user.hasRole(Perfil.ADMIN) && !email.equals(user.getUsername())) {
+//            throw new AuthorizationException("Acesso negado");
+//        }
+//
+//        Cliente obj = repository.findByEmail(email);
+//        if (obj == null) {
+//            throw new ObjectNotFoundException(
+//                    "Objeto não encontrado! Id: " + user.getId() + ", Tipo: " + Cliente.class.getName());
+//        }
+//        return obj;
+//    }
 
     @Transactional
     public Cliente create (Cliente cliente){
@@ -87,16 +103,16 @@ public class ClienteService {
     }
 
     @Transactional
-    public Cliente update (ClienteRequest clienteRequest) throws Exception{
-        Optional<Cliente> clienteFind = repository.findById(clienteRequest.getId());
-        if (clienteFind.isEmpty()){
-            throw new Exception("Id not found");
-        }
-        Cliente cliente = clienteRequest.toModel(clienteRequest);
-        // Cliente cliente = new Cliente(clienteRequest.getId(), clienteRequest.getNome(), clienteRequest.getEmail());
-        return repository.save(cliente);
+    public Cliente update(Cliente obj) {
+        Cliente newObj = find(obj.getId());
+        updateData(newObj, obj);
+        return repository.save(newObj);
     }
 
+    private void updateData(Cliente newObj, Cliente obj) {
+        newObj.setNome(obj.getNome());
+        newObj.setEmail(obj.getEmail());
+    }
 
     @Transactional
     public void delete(Integer id){
@@ -111,5 +127,9 @@ public class ClienteService {
     public Page<Cliente> findPage (Integer page, Integer linesPerPage, String orderBy, String direction){
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
         return repository.findAll(pageRequest);
+    }
+
+    public URI uploadProfilePicture(MultipartFile multipartFile){
+        return s3Service.uploadFile(multipartFile);
     }
 }

@@ -3,7 +3,7 @@ package com.cursonelio.javaspringboot.cursoNelio.service;
 import com.cursonelio.javaspringboot.cursoNelio.repository.ClienteRepository;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
 import com.cursonelio.javaspringboot.cursoNelio.service.EmailService.EmailService;
-import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFounfException;
+import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class AuthService {
     public void sendNewPassword(String email){
         Cliente cliente = clienteRepository.findByEmail(email);
         if(cliente == null ){
-            throw new ObjectNotFounfException("Email não encontrado");
+            throw new ObjectNotFoundException("Email não encontrado");
         }
 
         String newPass = newPassword();

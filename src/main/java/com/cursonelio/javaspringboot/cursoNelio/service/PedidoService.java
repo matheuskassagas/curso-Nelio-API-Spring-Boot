@@ -13,7 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFounfException;
+import com.cursonelio.javaspringboot.cursoNelio.service.exception.ObjectNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
@@ -72,7 +72,7 @@ public class PedidoService {
     @Transactional(readOnly = true)
     public Pedido find (Integer id){
         Optional<Pedido> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFounfException(("" +
+        return obj.orElseThrow(() -> new ObjectNotFoundException(("" +
                 "Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName())));
     }
 
@@ -82,7 +82,7 @@ public class PedidoService {
     }
 
     @Transactional(readOnly = true)
-    public PedidoResponse findClienteId (Integer id){
+    public PedidoResponse findPedidoId (Integer id){
         Optional<Pedido> pedido = repository.findById(id);
         return new PedidoResponse().toResponse(pedido.get());
     }

@@ -4,7 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
-public class EmailRequest {
+public class EmailRequest { // class para recuperaçao de senha
 
     @NotEmpty(message = "Preenchimento obrigatorio")
     @Email(message = "Email invalido")
