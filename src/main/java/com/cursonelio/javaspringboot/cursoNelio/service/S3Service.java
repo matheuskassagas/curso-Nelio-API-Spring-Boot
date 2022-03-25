@@ -3,6 +3,7 @@ package com.cursonelio.javaspringboot.cursoNelio.service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.cursonelio.javaspringboot.cursoNelio.service.exception.FileException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ import java.net.URISyntaxException;
 @Service
 public class S3Service {
 
-     private Logger LOG = LoggerFactory.getLogger(S3Service.class);
+    private Logger LOG = LoggerFactory.getLogger(S3Service.class);
 
     @Autowired
     private AmazonS3 s3Client;
@@ -37,7 +38,7 @@ public class S3Service {
             return uploadFile(is, fileName, contentType);
         }
         catch (IOException e){
-            throw new RuntimeException("Erro de IO: " + e.getMessage());
+            throw new FileException("Erro de IO: " + e.getMessage());
         }
     }
 
@@ -51,7 +52,7 @@ public class S3Service {
             return s3Client.getUrl(bucketName, fileName).toURI();
         }
         catch (URISyntaxException e){
-            throw new RuntimeException("Erro ao converter URL para URI");
+            throw new FileException("Erro ao converter URL para URI");
         }
 
 
