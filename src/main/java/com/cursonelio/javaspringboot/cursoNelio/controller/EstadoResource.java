@@ -1,10 +1,7 @@
 package com.cursonelio.javaspringboot.cursoNelio.controller;
 
-import com.amazonaws.services.dynamodbv2.xspec.L;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Response.CidadeResponse;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Response.EstadoResponse;
-import com.cursonelio.javaspringboot.cursoNelio.repository.CidadeRepository;
-import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Estado;
 import com.cursonelio.javaspringboot.cursoNelio.service.CidadeService;
 import com.cursonelio.javaspringboot.cursoNelio.service.EstadoService;
 import org.springframework.beans.factory.annotation.Autowired;
