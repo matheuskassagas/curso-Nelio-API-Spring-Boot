@@ -1,6 +1,5 @@
 package com.cursonelio.javaspringboot.cursoNelio.service;
 
-import com.cursonelio.javaspringboot.cursoNelio.dto.Request.ClienteRequest;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Request.ClienteRequestNew;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Response.ClienteResponse;
 import com.cursonelio.javaspringboot.cursoNelio.repository.EnderecoRepository;
@@ -97,15 +96,15 @@ public class ClienteService {
     }
 
     public Cliente fromDTO (ClienteRequestNew clienteRequestNew){
-        Cliente cli = new Cliente(null, clienteRequestNew.getNome(), clienteRequestNew.getEmail(), clienteRequestNew.getCpfOuCnpj(), TipoCliente.toEnum(clienteRequestNew.getTipoCliente()), bCryptPasswordEncoder.encode(clienteRequestNew.getSenha()));
+        Cliente cli = new Cliente(null, clienteRequestNew.getNome(), clienteRequestNew.getEmail(), clienteRequestNew.getCpfOuCnpj(), TipoCliente.toEnum(clienteRequestNew.getTipo()), bCryptPasswordEncoder.encode(clienteRequestNew.getSenha()));
         Endereco end = new Endereco(null, clienteRequestNew.getLogradouro(), clienteRequestNew.getNumero(), clienteRequestNew.getComplemento(), clienteRequestNew.getBairro(), clienteRequestNew.getCep(), cli, null);
         cli.getEnderecos().add(end);
-        cli.getTelefones().add(clienteRequestNew.getTelefones1());
-        if (clienteRequestNew.getTelefones2()!=null){
-            cli.getTelefones().add(clienteRequestNew.getTelefones2());
+        cli.getTelefones().add(clienteRequestNew.getTelefone1());
+        if (clienteRequestNew.getTelefone2()!=null){
+            cli.getTelefones().add(clienteRequestNew.getTelefone2());
         }
-        if (clienteRequestNew.getTelefones3()!=null){
-            cli.getTelefones().add(clienteRequestNew.getTelefones3());
+        if (clienteRequestNew.getTelefone3()!=null){
+            cli.getTelefones().add(clienteRequestNew.getTelefone3());
         }
         return cli;
     }

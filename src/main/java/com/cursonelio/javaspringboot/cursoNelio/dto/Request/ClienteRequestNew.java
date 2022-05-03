@@ -2,6 +2,7 @@ package com.cursonelio.javaspringboot.cursoNelio.dto.Request;
 
 import com.cursonelio.javaspringboot.cursoNelio.service.validation.ClienteInsert;
 import com.cursonelio.javaspringboot.cursoNelio.service.validation.CpfouCnpjValido;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -16,7 +17,8 @@ public class ClienteRequestNew {
     private String email;
     @NotEmpty
     private String cpfOuCnpj;
-    private Integer tipoCliente;
+
+    private Integer tipo;
 
     @NotEmpty
     private String senha;
@@ -31,9 +33,9 @@ public class ClienteRequestNew {
     private String cep;
 
     @NotEmpty
-    private String telefones1;
-    private String telefones2;
-    private String telefones3;
+    private String telefone1;
+    private String telefone2;
+    private String telefone3;
 
     private Integer cidadeId;
 
@@ -64,12 +66,12 @@ public class ClienteRequestNew {
         this.cpfOuCnpj = cpfOuCnpj;
     }
 
-    public Integer getTipoCliente() {
-        return tipoCliente;
+    public Integer getTipo() {
+        return tipo;
     }
 
-    public void setTipoCliente(Integer tipoCliente) {
-        this.tipoCliente = tipoCliente;
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
     }
 
     public String getSenha() {
@@ -120,28 +122,28 @@ public class ClienteRequestNew {
         this.cep = cep;
     }
 
-    public String getTelefones1() {
-        return telefones1;
+    public String getTelefone1() {
+        return telefone1;
     }
 
-    public void setTelefones1(String telefones1) {
-        this.telefones1 = telefones1;
+    public void setTelefone1(String telefone1) {
+        this.telefone1 = telefone1;
     }
 
-    public String getTelefones2() {
-        return telefones2;
+    public String getTelefone2() {
+        return telefone2;
     }
 
-    public void setTelefones2(String telefones2) {
-        this.telefones2 = telefones2;
+    public void setTelefone2(String telefone2) {
+        this.telefone2 = telefone2;
     }
 
-    public String getTelefones3() {
-        return telefones3;
+    public String getTelefone3() {
+        return telefone3;
     }
 
-    public void setTelefones3(String telefones3) {
-        this.telefones3 = telefones3;
+    public void setTelefone3(String telefone3) {
+        this.telefone3 = telefone3;
     }
 
     public Integer getCidadeId() {

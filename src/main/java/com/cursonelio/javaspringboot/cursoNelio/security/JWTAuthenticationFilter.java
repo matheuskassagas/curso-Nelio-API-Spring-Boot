@@ -36,12 +36,12 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
             UserRequest creds = new ObjectMapper()
-                    .readValue(request.getInputStream(), UserRequest.class);
+                    .readValue(request.getInputStream(), UserRequest.class); //pega os dados da requisição e armazena em UserRequest (dados de login).
 
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getSenha(), new ArrayList<>());
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getSenha(), new ArrayList<>()); // passo os dados para authtoken
 
             Authentication auth = authenticationManager.authenticate(authToken); //method que verifica se os dados sao validos, com base na implementacao do userdetailsservice, userdatails
-            return auth;
+            return auth; //informa se esta correto ou nao
         }
         catch (IOException e) {
             throw new RuntimeException(e);
@@ -50,8 +50,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        String username = ((UserSS) /* casting */ authResult.getPrincipal()).getUsername(); //getPrincipal retorna o usuario do SpringScurity, e fazemos um casting para user
-        String token = jwtUtil.generateToken(username);
+        String username = ((UserSS) /* casting */ authResult.getPrincipal()).getUsername(); //getPrincipal retorna o usuario do SpringSecurity, e fazemos um casting para user // getUsername (pega o email)
+        String token = jwtUtil.generateToken(username); // chama o metedo que gera o token passando o email
         response.addHeader("Authorization", "Bearer " + token);
         response.addHeader("access-control-expose-headers", "Authorization");
     }
@@ -65,6 +65,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             response.setContentType("application/json");
             response.getWriter().append(json());
         }
+
 
         private String json() {
             long date = new Date().getTime();

@@ -33,7 +33,7 @@ public class ResourceExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardError> validation(MethodArgumentNotValidException e, HttpServletRequest request){
-        ValidationError standardError = new ValidationError(System.currentTimeMillis(), HttpStatus.UNPROCESSABLE_ENTITY.value(), "Error validation", "Erro de validação", request.getRequestURI());
+        ValidationError standardError = new ValidationError(System.currentTimeMillis(), HttpStatus.UNPROCESSABLE_ENTITY.value(), "Error validation", "Error validation", request.getRequestURI());
         for (FieldError x : e.getBindingResult().getFieldErrors()){
             standardError.addError(x.getField(), x.getDefaultMessage());
         }
@@ -42,13 +42,13 @@ public class ResourceExceptionHandler {
 
     @ExceptionHandler(AuthorizationException.class)
     public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request){
-        StandardError standardError = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(), "Acess negado", e.getMessage(), request.getRequestURI());
+        StandardError standardError = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(), "Acesso negado", e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(standardError);
     }
 
     @ExceptionHandler(FileException.class)
     public ResponseEntity<StandardError> file(FileException e, HttpServletRequest request){
-        StandardError standardError = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "File erros", e.getMessage(), request.getRequestURI());
+        StandardError standardError = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "File error", e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standardError);
     }
 
