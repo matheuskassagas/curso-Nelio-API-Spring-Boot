@@ -40,16 +40,6 @@ public class ProdutoService {
         return repository.findDistinctByNomeContainingAndCategoriasIn(nome, categorias, pageRequest);
     }
 
-    @Transactional(readOnly = true)
-    public List<ProdutoResponse> findAll(){
-        return repository.findAll().stream().map(produto -> new ProdutoResponse().toResponse(produto)).collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
-    public ProdutoResponse findProdutoId (Integer id){
-        Optional<Produto> produto = repository.findById(id);
-        return new ProdutoResponse().toResponse(produto.get());
-    }
 
 
 }

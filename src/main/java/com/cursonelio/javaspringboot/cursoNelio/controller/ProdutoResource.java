@@ -30,17 +30,6 @@ public class ProdutoResource {
         return ResponseEntity.ok().body(obj);
     }
 
-    @RequestMapping(value = "/produto/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> findProduto (@PathVariable Integer id){
-        ProdutoResponse obj = service.findProdutoId(id);
-        return ResponseEntity.ok().body(obj);
-    }
-
-    @RequestMapping(value = "/produto/all", method = RequestMethod.GET)
-    public ResponseEntity<List<ProdutoResponse>> findAll(){
-        return ResponseEntity.ok().body(service.findAll());
-    }
-
     @RequestMapping(method = RequestMethod.GET)
     public  ResponseEntity<Page<ProdutoResponse>> findPage(
             @RequestParam(value="nome", defaultValue="") String nome,

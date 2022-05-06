@@ -31,7 +31,7 @@ public class Produto implements Serializable {
     public Produto(){
     }
 
-    @JsonIgnore
+
     public Produto(Integer id, String nome, Double preco) {
         super();
         this.id = id;
@@ -39,6 +39,7 @@ public class Produto implements Serializable {
         this.preco = preco;
     }
 
+    @JsonIgnore
     public List<Pedido> getPedidos(){
         List<Pedido> lista = new ArrayList<>();
         for(ItemPedido x: itens){
