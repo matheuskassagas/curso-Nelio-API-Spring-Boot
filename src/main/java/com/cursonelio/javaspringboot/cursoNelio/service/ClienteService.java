@@ -3,6 +3,7 @@ package com.cursonelio.javaspringboot.cursoNelio.service;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Request.ClienteRequestNew;
 import com.cursonelio.javaspringboot.cursoNelio.dto.Response.ClienteResponse;
 import com.cursonelio.javaspringboot.cursoNelio.repository.EnderecoRepository;
+import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cidade;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Cliente;
 import com.cursonelio.javaspringboot.cursoNelio.repository.ClienteRepository;
 import com.cursonelio.javaspringboot.cursoNelio.repository.entity.Endereco;
@@ -95,16 +96,17 @@ public class ClienteService {
         return cliente;
     }
 
-    public Cliente fromDTO (ClienteRequestNew clienteRequestNew){
-        Cliente cli = new Cliente(null, clienteRequestNew.getNome(), clienteRequestNew.getEmail(), clienteRequestNew.getCpfOuCnpj(), TipoCliente.toEnum(clienteRequestNew.getTipo()), bCryptPasswordEncoder.encode(clienteRequestNew.getSenha()));
-        Endereco end = new Endereco(null, clienteRequestNew.getLogradouro(), clienteRequestNew.getNumero(), clienteRequestNew.getComplemento(), clienteRequestNew.getBairro(), clienteRequestNew.getCep(), cli, null);
+    public Cliente fromDTO (ClienteRequestNew objDto){
+        Cliente cli = new Cliente(null, objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(), TipoCliente.toEnum(objDto.getTipo()), bCryptPasswordEncoder.encode(objDto.getSenha()));
+        Cidade cid = new Cidade(objDto.getCidadeId(), null, null);
+        Endereco end = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(), objDto.getBairro(), objDto.getCep(), cli, cid);
         cli.getEnderecos().add(end);
-        cli.getTelefones().add(clienteRequestNew.getTelefone1());
-        if (clienteRequestNew.getTelefone2()!=null){
-            cli.getTelefones().add(clienteRequestNew.getTelefone2());
+        cli.getTelefones().add(objDto.getTelefone1());
+        if (objDto.getTelefone2()!=null) {
+            cli.getTelefones().add(objDto.getTelefone2());
         }
-        if (clienteRequestNew.getTelefone3()!=null){
-            cli.getTelefones().add(clienteRequestNew.getTelefone3());
+        if (objDto.getTelefone3()!=null) {
+            cli.getTelefones().add(objDto.getTelefone3());
         }
         return cli;
     }
